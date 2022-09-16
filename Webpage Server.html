@@ -1,0 +1,362 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <script src="https://kit.fontawesome.com/80e2384ad9.js" crossorigin="anonymous"></script><style>
+    html {
+     font-family: cursive,"Times New Roman", "Arial";
+     display: inline-block;
+     margin: 0px auto;
+     text-align: center;
+     background-color:#3cb371;
+     margin-left: 2.5vw;margin-right: 2.5vw;
+    }
+    h2 { font-size:6vmin;background-color:white; padding: 20px;border-radius: 15px; }
+    p { font-size:3vmin;padding:3vh 0; }
+    .sensor-label{
+      font-size:3vmin;
+      vertical-align:middle;
+    }
+  .button {
+    background-color: #4CAF50;
+    color: white;
+    border:none;
+    padding: 2vh 2vw;
+    text-align: center;
+    display: inline-block;
+    font-size: 2.5vmin;
+  border-radius: 15px;
+    margin:2vh 0;
+  }
+  .grid-container_light {
+  display:grid;
+  grid-template-columns: auto auto;
+  gap: 1vmin;
+  background-color: #2196F5;
+  padding: 2vmin;
+  border:2px solid black;
+  margin-top:20px;
+  border-radius: 15px;
+  }
+  .grid-container_light > div {
+  background-color: white;
+  border: 2px solid black;
+  text-align: center;
+  font-size: 3vmin;
+  padding: 0.3vmin;
+  border-radius: 15px;
+  overflow-wrap: anywhere;
+  }
+  
+
+  .grid-container {
+  display: grid;
+  border:2px solid black;
+  margin-top:20px;
+  grid-template-columns: auto auto auto;
+  gap: 1vmin;
+  background-color: #2196F9;
+  padding: 2vmin;
+  border-radius: 15px;
+  }
+  .grid-container > div {
+  background-color: white;
+  border: 2px solid black;
+  text-align: center;
+  font-size: 3vmin;
+  padding: 0.3vmin;
+  border-radius: 15px;
+  overflow-wrap: anywhere;
+  }
+  
+  .div_system{
+  margin-top:3vmin;
+  padding:2vmin;
+  font-size:3.5vmin;
+  background-color:white;
+  border-radius: 15px;
+  }
+
+  </style>
+</head>
+<body>
+  <h2 id="top">Smart Greenhouse</h2>
+  <div class="div_system">Climate System<br><button id="temp_button" class="button">Show / Hide</button>
+   <div id="dispTempSystem" style="display: none;">
+   <div class="grid-container">
+      <div>Front Side Sensor Data</div>
+      <div>Cooling Fan</div>
+      <div>Back Side Sensor Data</div>
+      <div>
+        <p>
+        <i class="fas fa-thermometer-half" style="color:#059e8a;" id="temp1_icon"></i> 
+        <span class="sensor-label">Temperature :</span> 
+        <span id="temperature_sensor_front">%temperature_sensor_front%</span>
+        <span>&deg;C<span>
+        </p>
+      </div>
+      <div>
+         <p style="padding:3.7vmin 0;">
+        <i class="fa-solid fa-fan" style="color:red" id="fan_icon"></i>
+        <span class="sensor-label">Status :<br></span>
+        <span id="fan_status">%fan_status%</span>
+        </p>
+      </div>
+      <div>
+        <p>
+        <i class="fas fa-thermometer-half" style="color:#059e8a;" id="temp2_icon"></i> 
+        <span class="sensor-label">Temperature :</span> 
+        <span id="temperature_sensor_back">%temperature_sensor_back%</span>
+        <span>&deg;C<span>
+        </p>
+      </div>
+      <div id="humidity_div_left">
+        <p>
+        <i class="fas fa-tint" style="color:#00add6;" id="humi1_icon"></i> 
+        <span class="sensor-label">Humidity :</span>
+        <span id="humidity_sensor_front">%humidity_sensor_front%</span>
+        <span>&#37;</span>
+        </p>
+      </div>
+    <div><p style="font-size:1.8vmin;font-style:italic;padding:3.5vmin 0;">Sensors accuracy :<br>Temperature:0-50&deg;C /&plusmn;2&deg;C<br>Humidity: 20-80&#37;/&plusmn;5&#37;</p></div>
+     <div id="humidity_div_right">
+        <p>
+        <i class="fas fa-tint" style="color:#00add6;" id="humi2_icon"></i> 
+        <span class="sensor-label">Humidity :</span>
+        <span id="humidity_sensor_back">%humidity_sensor_back%</span>
+        <span>&#37;</span>
+        </p>
+      </div>
+
+    </div>
+   </div>
+   </div>
+   <!-- Lighting System -->
+   <div class="div_system">Lighting System<br><button id="light_button" class="button">Show / Hide</button>
+   <div id="dispLightSystem" style="display: none;">
+    <div class="grid-container_light">
+      <div>Lights</div>
+      <div>Light Detector</div>
+      <div>
+         <p>
+        <i class="fas fa-lightbulb" style="color:red" id="lights_icon"></i>
+        <span class="sensor-label">Status :</span>
+        <span id="lights_status">%lights_status%</span>
+        </p>
+      </div>
+      <div>
+         <p>
+        <i class="fa-solid fa-sun" style="color:yellow" id="sun_icon"></i>
+        <span class="sensor-label">Time of Day :</span>
+        <span id="ldr_day_stage">%ldr_day_stage%</span>
+        </p>
+      </div>
+    </div>
+   </div>
+   </div>
+   <!-- Water System -->
+      <div class="div_system">Water System<br><button id="water_button" class="button">Show / Hide</button>
+   <div id="dispWaterSystem" style="display: none;">
+    <div class="grid-container_light">
+      <div>Reservoir</div>
+      <div>Water Pump</div>
+      <div>
+         <p>
+        <i class="fa-solid fa-glass-water-droplet" style="color:red" id="water_icon"></i>
+        <span class="sensor-label">Water Level:</span>
+        <span id="water_tank_level">%water_tank_level%</span>
+        </p>
+      </div>
+      <div>
+         <p>
+        <i class="fa-solid fa-faucet" style="color:red" id="water_2_icon"></i>
+        <span class="sensor-label">Status :</span>
+        <span id="water_pump_status">%water_pump_status%</span>
+        </p>
+      </div>
+    </div>
+   </div>
+   </div>
+   
+</body>
+<script>
+var temp_button =  document.getElementById("temp_button");
+var light_button = document.getElementById("light_button");
+var water_button = document.getElementById("water_button");
+temp_button.addEventListener("click",function(){
+  var x = document.getElementById("dispTempSystem");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+  const temp_div = document.getElementById("top");
+  temp_div.scrollIntoView({behavior: 'smooth' });
+});
+light_button.addEventListener("click",function(){
+    var x = document.getElementById("dispLightSystem");
+    if (x.style.display === "none") {
+    x.style.display = "block";
+    } else {
+    x.style.display = "none";
+    }
+  const light_div = document.getElementById("sun_icon");
+  light_div.scrollIntoView({behavior: 'smooth' });
+});
+water_button.addEventListener("click",function(){
+    var x = document.getElementById("dispWaterSystem");
+    if (x.style.display === "none") {
+    x.style.display = "block";
+    } else {
+    x.style.display = "none";
+    }
+  const water_div = document.getElementById("water_icon");
+  water_div.scrollIntoView({behavior: 'smooth' });
+});
+<!-- Climate System -->
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var value = parseFloat(this.responseText);
+      if(value>-20)
+        {
+          document.getElementById("temperature_sensor_front").innerHTML = this.responseText;
+          if(value>25){document.getElementById("temp1_icon").style.color = "red";document.getElementById("temperature_sensor_front").style.color = "red";}
+          else {document.getElementById("temp1_icon").style.color = "green";document.getElementById("temperature_sensor_front").style.color = "green";}
+        }
+      else {document.getElementById("temperature_sensor_front").innerHTML = "Error &#9888";document.getElementById("temp1_icon").style.color = "black"; }
+    }
+  };
+  xhttp.open("GET", "/temperature_sensor_front", true);
+  xhttp.send();
+}, 10000 ) ;
+
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var value = parseFloat(this.responseText);
+      if(value>-20)
+        {
+          document.getElementById("humidity_sensor_front").innerHTML = this.responseText;
+          if(value>65){document.getElementById("humi1_icon").style.color = "blue";document.getElementById("humidity_sensor_front").style.color = "blue";}
+          else {document.getElementById("humi1_icon").style.color = "cyan";document.getElementById("humidity_sensor_front").style.color = "cyan";}
+        }
+      else {document.getElementById("humidity_sensor_front").innerHTML = "Error &#9888";document.getElementById("humi1_icon").style.color = "black"; }
+    }
+  };
+  xhttp.open("GET", "/humidity_sensor_front", true);
+  xhttp.send();
+}, 10000 ) ;
+
+<!-- Sensor at the back -->
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var value = parseFloat(this.responseText);
+      if(value>-20)
+        {
+          document.getElementById("temperature_sensor_back").innerHTML = this.responseText;
+          if(value>25){document.getElementById("temp2_icon").style.color = "red";document.getElementById("temperature_sensor_back").style.color = "red";}
+          else {document.getElementById("temp2_icon").style.color = "green";document.getElementById("temperature_sensor_back").style.color = "green";}
+        }
+      else {document.getElementById("temperature_sensor_back").innerHTML = "Error &#9888";document.getElementById("temp2_icon").style.color = "black"; }
+    }
+  };
+  xhttp.open("GET", "/temperature_sensor_back", true);
+  xhttp.send();
+}, 10000 ) ;
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var value = parseFloat(this.responseText);
+      if(value>-20)
+        {
+          document.getElementById("humidity_sensor_back").innerHTML = this.responseText;
+          if(value>65){document.getElementById("humi2_icon").style.color = "blue";document.getElementById("humidity_sensor_back").style.color = "blue";}
+          else {document.getElementById("humi2_icon").style.color = "cyan";document.getElementById("humidity_sensor_back").style.color = "cyan";}
+        }
+      else {document.getElementById("humidity_sensor_back").innerHTML = "Error &#9888";document.getElementById("humi2_icon").style.color = "black"; }
+    }
+  };
+  xhttp.open("GET", "/humidity_sensor_back", true);
+  xhttp.send();
+}, 10000 ) ;
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      if(parseInt(this.responseText))
+            {document.getElementById("fan_status").innerHTML = "Active";document.getElementById("fan_icon").style.color = "green";}
+      else  {document.getElementById("fan_status").innerHTML = "Inactive";document.getElementById("fan_icon").style.color = "red";}
+    }
+  };
+  xhttp.open("GET", "/fan_status", true);
+  xhttp.send();
+}, 10000 ) ;
+
+<!-- Light System -->
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      if(parseInt(this.responseText))
+           {document.getElementById("lights_status").innerHTML = "Active";document.getElementById("lights_icon").style.color = "yellow";}
+      else {document.getElementById("lights_status").innerHTML = "Inactive";document.getElementById("lights_icon").style.color = "black";}
+    }
+  };
+  xhttp.open("GET", "/lights_status", true);
+  xhttp.send();
+}, 10000 ) ;
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      if(parseInt(this.responseText))
+            {document.getElementById("ldr_day_stage").innerHTML = "Day";document.getElementById("sun_icon").style.color = "yellow";}
+      else  {document.getElementById("ldr_day_stage").innerHTML = "Night";document.getElementById("sun_icon").style.color = "black";}
+    }
+  };
+  xhttp.open("GET", "/ldr_day_stage", true);
+  xhttp.send();
+}, 10000 ) ;
+
+<!--Water System -->
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    var value = parseFloat(this.responseText)
+      if(value >= 0){
+        document.getElementById("water_tank_level").innerHTML = value +"-"+(value+25)+"&#37";;
+        if(value>=75)     document.getElementById("water_icon").style.color = "green";
+        else if(value>=50)document.getElementById("water_icon").style.color = "lightgreen";
+        else if(value>=25)document.getElementById("water_icon").style.color = "yellow";
+        else if(value>=0) document.getElementById("water_icon").style.color = "red";
+      }
+      else {
+        document.getElementById("water_tank_level").innerHTML = "Error";
+        document.getElementById("water_icon").style.color = "black";
+      }
+    }
+  };
+  xhttp.open("GET", "/water_tank_level", true);
+  xhttp.send();
+}, 10000 ) ;
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      if(parseInt(this.responseText))
+            {document.getElementById("water_pump_status").innerHTML = "Active";document.getElementById("water_2_icon").style.color = "green";}
+      else  {document.getElementById("water_pump_status").innerHTML = "Inactive";document.getElementById("water_2_icon").style.color = "red";}
+    }
+  };
+  xhttp.open("GET", "/water_pump_status", true);
+  xhttp.send();
+}, 10000 ) ;
+</script>
+</html>
